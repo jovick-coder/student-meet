@@ -8,7 +8,7 @@ export default function Avatar({ size }) {
 
   return (
     <div className={`${width} rounded-full overflow-hidden`}>
-      <Image src="/images/profile.jpg" alt="image" width={10} height={10} />
+      <Image src="/images/avatar.webp" alt="image" width={100} height={100} />
     </div>
   );
 }
