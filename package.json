@@ -9,15 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.8",
+    "@supabase/ui": "^0.36.5",
     "autoprefixer": "10.4.14",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "js-cookie": "^3.0.5",
+    "moment": "^2.30.1",
     "next": "13.4.2",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-clickout-handler": "^1.2.1",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
-    "tailwindcss": "3.3.2"
+    "tailwindcss": "3.3.2",
+    "uuid": "^9.0.1"
   }
 }
