@@ -101,7 +101,7 @@ export default function PostCard({ post, loggedIn }) {
             Posted {moment(post?.created_at).fromNow()}
           </p>
         </div>
-        <div className="relative">
+        <div className="">
           {!dropdownOpen && (
             <button
               // onClick={openDropdown}
@@ -241,40 +241,28 @@ export default function PostCard({ post, loggedIn }) {
         )}
       </div>
       {writeComment && (
-        <div>
+        <div className=" relative">
           <div className="flex mt-4 gap-3 mb-2">
             <div>
               <Avatar />
             </div>
-            <div className="border grow rounded-md relative">
+            <div className="border grow rounded-md ">
               <textarea
-                className="block w-full overflow-hidden p-3 px-4 h-12"
+                className=" w-full overflow-hidden p-3 px-4 h-12 "
                 placeholder="Leave a comment"
                 value={commentMessage}
                 onChange={(e) => setCommentMessage(e.target.value)}
               />
-              <button className="absolute top-3 right-3 text-gray-400">
-                {commentMessage === "" ? (
-                  <IoIosClose
+              <button className="absolute top-3 right-3 text-gray-400 border">
+                {sendCommentLoading ? (
+                  <BiDotsHorizontalRounded className="w-7 h-7 border rounded" />
+                ) : (
+                  <IoIosPaperPlane
                     className="w-7 h-7 border rounded"
                     onClick={() => {
-                      setWriteComment(false);
+                      handelCommentOnPostFunction(false);
                     }}
                   />
-                ) : (
-                  <>
-                    {" "}
-                    {sendCommentLoading ? (
-                      <BiDotsHorizontalRounded />
-                    ) : (
-                      <IoIosPaperPlane
-                        className="w-7 h-7 border rounded"
-                        onClick={() => {
-                          handelCommentOnPostFunction(false);
-                        }}
-                      />
-                    )}
-                  </>
                 )}
               </button>
             </div>
