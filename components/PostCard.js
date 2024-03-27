@@ -8,7 +8,6 @@ import { BsShare, BsThreeDotsVertical, BsFillBookmarksFill } from 'react-icons/b
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { IoImageOutline } from "react-icons/io5";
 import { GoAlert } from "react-icons/go";
-import ClickOutHandler from "react-clickout-handler";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -36,16 +35,16 @@ export default function PostCard({ post, loggedIn }) {
     }
   }, [id, post]);
 
-  function openDropdown(e) {
+  function openDropdown() {
     if (!loggedIn) {
       return toast.error("Login to use post option");
     }
-    e.stopPropagation();
+    // e.stopPropagation();
     setDropdownOpen(true);
   }
 
-  function handleClickOutsideDropdown(e) {
-    e.stopPropagation();
+  function closeDropdown(e) {
+    // e.stopPropagation();
     setDropdownOpen(false);
   }
 
@@ -105,60 +104,66 @@ export default function PostCard({ post, loggedIn }) {
         <div className="relative">
           {!dropdownOpen && (
             <button
-              onClick={openDropdown}
+              // onClick={openDropdown}
               className="text-gray-500 hover:text-gray-800"
             >
-              <BsThreeDotsVertical />
+              <BsThreeDotsVertical onClick={() => openDropdown()} />
             </button>
           )}
           {dropdownOpen && (
             <button className="text-gray-500 hover:text-gray-800">
-              <BsThreeDotsVertical />
+              <BsThreeDotsVertical onClick={() => closeDropdown()} />
             </button>
           )}
-          <ClickOutHandler onClickOut={handleClickOutsideDropdown}>
-            <div className="relative">
-              {dropdownOpen && (
-                <div className="absolute -right-6 bg-white shadow-lg shadow-gray-700 p-3 rounded-md border-gray-100 w-52">
-                  <a
-                    href=""
-                    className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center"
-                  >
-                    <BsFillBookmarksFill />
-                    Save post{" "}
-                  </a>
-                  <a
-                    href=""
-                    className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center"
-                  >
-                    <AiFillBell />
-                    Turn notifications
-                  </a>
-                  <a
-                    href=""
-                    className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center"
-                  >
-                    <FaTimes />
-                    Hide
-                  </a>
-                  <a
-                    href=""
-                    className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-red-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center hover:text-red-600"
-                  >
-                    <RiDeleteBin6Fill />
-                    Delete
-                  </a>
-                  <a
-                    href=""
-                    className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-red-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center hover:text-red-600"
-                  >
-                    <GoAlert />
-                    Report
-                  </a>
-                </div>
-              )}
-            </div>
-          </ClickOutHandler>
+          <div className="relative">
+            {dropdownOpen && (
+              <div className="absolute -right-6 bg-white shadow-lg shadow-gray-700 p-3 rounded-md border-gray-100 w-52">
+                <span
+                  href=""
+                  className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center"
+                  onClick={() => closeDropdown()}
+                >
+                  <IoIosClose />
+                  Close
+                </span>
+                <a
+                  href=""
+                  className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center"
+                >
+                  <BsFillBookmarksFill />
+                  Save post{" "}
+                </a>
+                <a
+                  href=""
+                  className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center"
+                >
+                  <AiFillBell />
+                  Turn notifications
+                </a>
+                <a
+                  href=""
+                  className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center"
+                >
+                  <FaTimes />
+                  Hide
+                </a>
+                <a
+                  href=""
+                  className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-red-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center hover:text-red-600"
+                >
+                  <RiDeleteBin6Fill />
+                  Delete
+                </a>
+                <a
+                  href=""
+                  className="text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-red-500 hover:bg-opacity-20 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center hover:text-red-600"
+                >
+                  <GoAlert />
+                  Report
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div>
