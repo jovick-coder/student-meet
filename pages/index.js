@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import PostCard from "@/components/PostCard";
 import PostFormCard from "@/components/PostFormCard";
-import Spinner from "@/components/spinner";
+import Spinner from "@/components/Spinner";
 import supabase, { getPostFunction, getUserPostFunction } from "@/lib/supabase";
 import Cookies from "js-cookie";
 import Image from "next/image";
