@@ -20,31 +20,31 @@ export default function NavigationCard() {
     {
       link: "/",
       name: "Home",
-      icon: <AiOutlineHome className="text-[30px] md:text-[20px]" />,
+      icon: <AiOutlineHome className="text-[25px] md:text-[20px]" />,
       auth: false,
     },
     {
       link: "/profile",
       name: "Profile",
-      icon: <CgProfile className="text-[30px] md:text-[20px]" />,
+      icon: <CgProfile className="text-[25px] md:text-[20px]" />,
       auth: true,
     },
     {
       link: "/profile/friends",
       name: "Friends",
-      icon: <BsPeople className="text-[30px] md:text-[20px]" />,
+      icon: <BsPeople className="text-[25px] md:text-[20px]" />,
       auth: true,
     },
     {
       link: "/saved",
       name: "Chat",
-      icon: <BsChatDots className="text-[30px] md:text-[20px]" />,
+      icon: <BsChatDots className="text-[25px] md:text-[20px]" />,
       auth: true,
     },
     {
       link: "/notifications",
       name: "Notifications",
-      icon: <IoMdNotificationsOutline className="text-[30px] md:text-[20px]" />,
+      icon: <IoMdNotificationsOutline className="text-[25px] md:text-[20px]" />,
       auth: true,
     },
     // Add more navigation links here as needed
@@ -109,7 +109,7 @@ export default function NavigationCard() {
         {loggedIn && (
           <div onClick={() => logoutFunction()}>
             <span className={nonActiveElementClasses}>
-              <IoMdLogOut className=" text-[30px] md:text-[20px]" />
+              <IoMdLogOut className=" text-[25px] md:text-[20px]" />
               <span className="hidden md:block">Logout</span>
             </span>
           </div>
@@ -118,7 +118,7 @@ export default function NavigationCard() {
         {!loggedIn && (
           <Link href="/auth">
             <span className=" flex gap-1 align-middle items-center m-2">
-              <IoMdLogIn className=" text-[30px] md:text-[20px]" />
+              <IoMdLogIn className=" text-[25px] md:text-[20px]" />
               <span className="text-[#11111]">Login</span>
             </span>
           </Link>

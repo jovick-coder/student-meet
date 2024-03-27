@@ -202,12 +202,12 @@ export default function PostCard({ post, loggedIn }) {
         >
           {post?.likes.includes(id) ? (
             <FcLike
-              className="text-[30px]"
+              className="text-[25px]"
               onClick={() => setLike((prev) => !prev)}
             />
           ) : (
             <AiOutlineHeart
-              className="text-[30px]"
+              className="text-[25px]"
               onClick={() => setLike((prev) => !prev)}
             />
           )}
@@ -225,11 +225,11 @@ export default function PostCard({ post, loggedIn }) {
             setWriteComment(true);
           }}
         >
-          <FaRegComment className="text-[25px]" />
+          <FaRegComment className="text-[20px]" />
           {post?.comments?.length || 0}
         </button>
         <button className="flex gap-2 items-center" onClick={shearPostFunction}>
-          <BsShare className="text-[25px]" /> {post?.sheared || 0}
+          <BsShare className="text-[20px]" /> {post?.sheared || 0}
         </button>
         {writeComment && (
           <button
