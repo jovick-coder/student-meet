@@ -129,24 +129,32 @@ export default function ProfilePage() {
                 <Image
                   src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
+                  width={1260}
+                  height={750}
                 />
               </div>
               <div className="rounded-md overflow-hidden h-50 shadow-md flex item-center hover:scale-105 transition-all cursor-pointer">
                 <Image
                   src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
+                  width={1260}
+                  height={750}
                 />
               </div>
               <div className="rounded-md overflow-hidden h-50 shadow-md flex item-center hover:scale-105 transition-all cursor-pointer">
                 <Image
                   src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
+                  width={1260}
+                  height={750}
                 />
               </div>
               <div className="rounded-md overflow-hidden h-50 shadow-md flex item-center hover:scale-105 transition-all cursor-pointer">
                 <Image
                   src="https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
+                  width={1260}
+                  height={750}
                 />
               </div>
             </div>
