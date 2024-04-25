@@ -5,6 +5,7 @@ import { useChatContext } from "@/context/ChatContext";
 import { useProfileContext } from "@/context/ProfileContext";
 import supabase from "@/lib/supabase";
 import moment from "moment";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaArrowAltCircleLeft, FaPaperPlane, FaPlane } from "react-icons/fa";
 
@@ -60,10 +61,16 @@ export default function Chat() {
   }, [activeChat]);
 
   return (
-    <Layout>
-      {/* <h1 className="text-6xl mb-4 text-gray-400">Chats</h1> */}
+    <Layout hideNavigation={true}>
+      <div className="text-3xl  ms-3 mt-3 text-gray-400 flex gap-4 align-middle">
+        {" "}
+        <Link href="/">
+          <FaArrowAltCircleLeft />
+        </Link>
+        Chats
+      </div>
       <div className="h-full flex flex-col md:flex-row">
-        <div className="friends-list w-full md:w-2/5 p-2 border-b-2 md:border-r-2">
+        <div className="friends-list w-full md:w-2/5 p-2 border-b-2 md:border-r-2 px-3 md:p-0">
           {friends.already_friends.map((friend, i) => (
             <div
               className="border-b border-b-gray-100 px-4 md:p-4 -mx-4"
@@ -101,7 +108,7 @@ export default function Chat() {
                       {friendDetail?.username || "Friend"}
                     </div>
 
-                    <div className="max-h-[68vh] md:h-[80vh] overflow-y-scroll p-3">
+                    <div className="max-h-[79vh] md:h-[80vh] overflow-y-scroll p-3">
                       {activeMassage.chats.map((chat) => {
                         return (
                           <React.Fragment key={chat.id}>
