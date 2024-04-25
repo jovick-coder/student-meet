@@ -101,7 +101,7 @@ export default function Chat() {
                       {friendDetail?.username || "Friend"}
                     </div>
 
-                    <div className="h-[80vh] overflow-y-scroll p-3">
+                    <div className="max-h-[68vh] md:h-[80vh] overflow-y-scroll p-3">
                       {activeMassage.chats.map((chat) => {
                         return (
                           <React.Fragment key={chat.id}>
