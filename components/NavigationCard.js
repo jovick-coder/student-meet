@@ -36,7 +36,7 @@ export default function NavigationCard() {
       auth: true,
     },
     {
-      link: "/saved",
+      link: "/chat",
       name: "Chat",
       icon: <BsChatDots className="text-[25px] md:text-[20px]" />,
       auth: true,
@@ -70,16 +70,16 @@ export default function NavigationCard() {
   const { asPath: pathname } = router;
 
   const activeElementClasses =
-    "hover:font-bold text-sm md:text-md flex gap-1 md:gap-3 py-3 my-1 bg-socialBlue text-white md:-mx-7 px-4 md:px-7 rounded-md shadow-md shadow-gray-300 items-center";
+    "hover:font-bold text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 bg-socialBlue text-white md:-mx-7 px-4 md:px-7 rounded-md shadow-md shadow-gray-300 items-center";
   const nonActiveElementClasses =
-    "hover:font-bold text-sm md:text-md flex gap-1 md:gap-3 py-2 my-2 hover:bg-blue-500 hover:bg-opacity-20 md:-mx-4 px-6 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center";
+    "hover:font-bold text-sm md:text-md flex gap-1 md:gap-3 py-2  my-2 hover:bg-blue-500 hover:bg-opacity-20 md:-mx-4 px-4 md:px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300 items-center border";
 
   const handleButtonClick = () => {
     toast.success("You did it!"); // Displays a success message
   };
   return (
     <Card>
-      <div className="md:px-4 py-2 flex md:gap-4 justify-between md:block">
+      <div className="md:px-4 py-2 gap-1 flex md:gap-4 justify-between md:block">
         <h2 className="text-gray-400 mb-3 hidden md:block">Navigation</h2>
 
         {/* Render navigation links based on auth status */}
