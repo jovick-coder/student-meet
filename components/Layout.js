@@ -1,12 +1,11 @@
-import { Toaster } from "react-hot-toast";
 import NavigationCard from "./NavigationCard";
 
 export default function Layout({ children, hideNavigation }) {
-  let rightColumnClasses = "";
+  let rightColumnClasses = "h-[66vh] md:h-auto ";
   if (hideNavigation) {
-    rightColumnClasses += "w-full";
+    rightColumnClasses += "w-full ";
   } else {
-    rightColumnClasses += "mx-4 md:max-0 md:w-9/12";
+    rightColumnClasses += "mx-4 md:max-0 md:w-9/12 ";
   }
   return (
     <div className="md:flex mt-4 max-w-4xl mx-auto gap-6">
@@ -16,10 +15,7 @@ export default function Layout({ children, hideNavigation }) {
           <NavigationCard />
         </div>
       )}
-      <div className={rightColumnClasses}>
-        <Toaster position="top-center" />
-        {children}
-      </div>
+      <div className={rightColumnClasses}>{children}</div>
     </div>
   );
 }
