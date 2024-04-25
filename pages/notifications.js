@@ -44,8 +44,8 @@ export default function Notifications() {
       <h1 className="text-6xl mb-4 text-gray-400">Notifications</h1>
       <Card noPadding={true}>
         <div className="">
-          {notifications.data.map((notification) => (
-            <div className="border-b border-b-gray-100 p-4">
+          {notifications.data.map((notification, i) => (
+            <div className="border-b border-b-gray-100 p-4" key={i}>
               <div>{notification.message}</div>
               <small>{moment(notification.created_at).fromNow()}</small>
             </div>
