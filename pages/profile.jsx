@@ -1,24 +1,27 @@
 import Avatar from "@/components/Avatar";
 import Card from "@/components/Card";
-import FriendInfo from "@/components/FriendInfo";
+import {
+  FriendInfo,
+  FriendRequestInfo,
+  NewFriendInfo,
+} from "@/components/FriendInfo";
 import Layout from "@/components/Layout";
 import PostCard from "@/components/PostCard";
-import supabase, {
-  getUserFriendsFunction,
-  getUserPostFunction,
-  getUserProfileFunction,
-} from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
+import { useProfileContext } from "@/context/ProfileContext";
+
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function ProfilePage() {
-  const [userProfile, setUserProfile] = useState(null);
-  const [userPosts, setUserPosts] = useState([]);
-  const [userFriends, setUserFriends] = useState([]);
+  const [friendsTab, setFriendsTab] = useState(1);
+  const { id, userProfile, friends, userPosts } = useProfileContext();
+  const { loggedIn } = useAuth();
+
   const router = useRouter();
   const { asPath: pathname } = router;
   const isPosts = pathname.includes("posts") || pathname === "/profile";
@@ -29,21 +32,9 @@ export default function ProfilePage() {
   const activeTabClasses =
     "flex gap-1 px-5 py-1 items-center bg-socialBlue text-white rounded-md";
 
-  const id = Cookies.get("social-id");
   useEffect(() => {
-    async function fetchData() {
-      // Read the 'userId' cookie
-
-      const profile = await getUserProfileFunction(id);
-      setUserProfile(profile);
-      const userPosts = await getUserPostFunction(id);
-      setUserPosts(userPosts);
-      const userFriends = await getUserFriendsFunction(id);
-      setUserFriends(userFriends);
-    }
-    fetchData();
-  }, [id]);
-
+    console.log({ userPosts });
+  }, [userPosts]);
   return (
     <Layout>
       <Card noPadding={true}>
@@ -64,7 +55,7 @@ export default function ProfilePage() {
           <div className="p-4">
             <div className="ml-36">
               <h1 className="uppercase font-semibold text-2xl">
-                {userProfile?.full_name}
+                {userProfile?.full_name} ({userProfile?.username})
               </h1>
               <div className="text-gray-500 leading-4">
                 {userProfile?.school}, {userProfile?.department}
@@ -99,7 +90,15 @@ export default function ProfilePage() {
           </div>
         </div>
       </Card>
-      {isPosts && <PostCard />}
+      {isPosts && (
+        <>
+          {userPosts?.map((post) => (
+            <React.Fragment key={post.id}>
+              <PostCard post={post} loggedIn={loggedIn} />
+            </React.Fragment>
+          ))}
+        </>
+      )}
       {isAbout && (
         <Card>
           <h2 className="text-3xl mb-2">About me</h2>
@@ -107,19 +106,82 @@ export default function ProfilePage() {
         </Card>
       )}
       {isFriends && (
-        <Card>
-          <h2 className="text-3xl mb-2">Friends</h2>
-          <div className="">
-            {userFriends.map((friend, i) => (
-              <div
-                className="border-b border-b-gray-100 p-4 -mx-4"
-                key={`userFriends${i}`}
-              >
-                <FriendInfo friend={friend} userId={id} />
-              </div>
-            ))}
+        <>
+          <div className="flex gap-3 mb-4">
+            <button
+              onClick={() => setFriendsTab(1)}
+              className={`border rounded w-[100%] py-1 ${
+                friendsTab == 1 && " bg-socialBlue text-white"
+              }`}
+            >
+              Friends
+            </button>
+            <button
+              onClick={() => setFriendsTab(2)}
+              className={`border rounded w-[100%] py-1 ${
+                friendsTab == 2 && " bg-socialBlue text-white"
+              }`}
+            >
+              Friend Request
+            </button>
+            <button
+              onClick={() => setFriendsTab(3)}
+              className={`border rounded w-[100%] py-1 ${
+                friendsTab == 3 && " bg-socialBlue text-white"
+              }`}
+            >
+              Get New Friends
+            </button>
           </div>
-        </Card>
+
+          <Card>
+            {friendsTab === 1 && (
+              <>
+                <h2 className="text-3xl mb-2">Friends</h2>
+                <div className="">
+                  {friends.already_friends.map((friend, i) => (
+                    <div
+                      className="border-b border-b-gray-100 p-4 -mx-4"
+                      key={`userFriends${i}`}
+                    >
+                      <FriendInfo friend={friend} userId={id} />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+            {friendsTab === 2 && (
+              <>
+                <h2 className="text-3xl mb-2">Friends Request</h2>
+                <div className="">
+                  {friends.friend_requests.map((request, i) => (
+                    <div
+                      className="border-b border-b-gray-100 p-4 -mx-4"
+                      key={`userFriends${i}`}
+                    >
+                      <FriendRequestInfo request={request} userId={id} />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+            {friendsTab === 3 && (
+              <>
+                <h2 className="text-3xl mb-2">New Friends</h2>
+                <div className="">
+                  {friends.new_friends.map((friend, i) => (
+                    <div
+                      className="border-b border-b-gray-100 p-4 -mx-4"
+                      key={`userFriends${i}`}
+                    >
+                      <NewFriendInfo friend={friend} userId={id} />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </Card>
+        </>
       )}
       {isPhotos && (
         <div>
