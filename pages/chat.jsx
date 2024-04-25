@@ -11,14 +11,10 @@ import { FaArrowAltCircleLeft, FaPaperPlane, FaPlane } from "react-icons/fa";
 export default function Chat() {
   const { id, friends } = useProfileContext();
   const {
-    friend,
     setFriend,
     activeChat,
     setActiveChat,
     activeMassage,
-    handelSendMessage,
-    message,
-    setMessage,
     setActiveMessage,
   } = useChatContext();
   const [friendDetail, setFriendDetail] = useState(null);
@@ -65,10 +61,9 @@ export default function Chat() {
 
   return (
     <Layout>
-      <h1 className="text-6xl mb-4 text-gray-400">Chats</h1>
-
-      <div className="flex flex-col md:flex-row border min-h-[500px] h-full">
-        <div className="friends-list border border-red-500 w-full md:w-2/5 p-2">
+      {/* <h1 className="text-6xl mb-4 text-gray-400">Chats</h1> */}
+      <div className="h-full flex flex-col md:flex-row">
+        <div className="friends-list w-full md:w-2/5 p-2 border-b-2 md:border-r-2">
           {friends.already_friends.map((friend, i) => (
             <div
               className="border-b border-b-gray-100 px-4 md:p-4 -mx-4"
@@ -79,61 +74,50 @@ export default function Chat() {
             </div>
           ))}
         </div>
-        <div className="chat border border-green-500 w-full relative">
-          {activeChat === null && (
-            <div className="flex justify-center items-center h-[66vh] text-xs">
-              Select a Friend
-            </div>
-          )}
-          {activeChat !== null && (
-            <>
-              {activeMassage.loading ? (
-                <div className="flex justify-center items-center h-[66vh] text-xs">
-                  Loading...
-                </div>
-              ) : (
-                <div className="relative h-[66vh] border border-blue-900">
-                  <div className="top-info-card flex gap-3 ps-3 border h-10 items-center">
-                    <button
-                      onClick={() => {
-                        setActiveChat(null);
-                        setFriend(null);
-                      }}
-                    >
-                      <FaArrowAltCircleLeft />
-                    </button>{" "}
-                    {friendDetail?.username || "Friend"}
+        <div className="chat w-full ">
+          <div className="h-full">
+            {activeChat === null && (
+              <div className="flex justify-center items-center h-full text-xs">
+                Select a Friend
+              </div>
+            )}
+            {activeChat !== null && (
+              <>
+                {activeMassage.loading ? (
+                  <div className="flex justify-center items-center h-full text-xs">
+                    Loading...
                   </div>
-                  <div className="h-[58vh] ma x-h-80 border border-green-900 overflow-y-scroll p-3">
-                    {activeMassage.chats.map((chat) => {
-                      return (
-                        <React.Fragment key={chat.id}>
-                          <ChatCardComponent chat={chat} />
-                        </React.Fragment>
-                      );
-                    })}
-                  </div>
+                ) : (
+                  <div className="flex flex-col">
+                    <div className="top-info-card flex gap-3 ps-3 h-10 items-center border-b-2">
+                      <button
+                        onClick={() => {
+                          setActiveChat(null);
+                          setFriend(null);
+                        }}
+                      >
+                        <FaArrowAltCircleLeft />
+                      </button>{" "}
+                      {friendDetail?.username || "Friend"}
+                    </div>
 
-                  <div className="chat-section flex gap-2 absolute w-full bottom-0">
-                    <input
-                      type="text"
-                      className="w-full h-8 rounded-lg px-2"
-                      value={message}
-                      onChange={(e) => {
-                        setMessage(e.target.value);
-                      }}
-                    />{" "}
-                    <button
-                      className="w-16 text-center border rounded-md bg-socialBlue text-white flex justify-center items-center"
-                      onClick={() => handelSendMessage(message)}
-                    >
-                      <FaPaperPlane />
-                    </button>
+                    <div className="h-[80vh] overflow-y-scroll p-3">
+                      {activeMassage.chats.map((chat) => {
+                        return (
+                          <React.Fragment key={chat.id}>
+                            <ChatCardComponent chat={chat} />
+                          </React.Fragment>
+                        );
+                      })}
+                    </div>
+                    <>
+                      <ChatFormComponent />
+                    </>
                   </div>
-                </div>
-              )}
-            </>
-          )}
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
@@ -176,6 +160,28 @@ function ChatCardComponent({ chat }) {
           {moment(chat?.created_at).format("dddd h:mm")}
         </i>
       </div>
+    </div>
+  );
+}
+
+function ChatFormComponent() {
+  const { handelSendMessage, message, setMessage } = useChatContext();
+  return (
+    <div className="chat-section flex gap-2 w-full bottom-0 p-3">
+      <input
+        type="text"
+        className="w-full h-8 rounded-lg px-2"
+        value={message}
+        onChange={(e) => {
+          setMessage(e.target.value);
+        }}
+      />{" "}
+      <button
+        className="w-16 text-center rounded-md bg-socialBlue text-white flex justify-center items-center"
+        onClick={() => handelSendMessage(message)}
+      >
+        <FaPaperPlane />
+      </button>
     </div>
   );
 }
