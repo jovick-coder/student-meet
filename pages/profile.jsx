@@ -32,9 +32,9 @@ export default function ProfilePage() {
   const activeTabClasses =
     "flex gap-1 px-5 py-1 items-center bg-socialBlue text-white rounded-md";
 
-  useEffect(() => {
-    console.log({ userPosts });
-  }, [userPosts]);
+  // useEffect(() => {
+  //   // console.log({ userPosts });
+  // }, [userPosts]);
   return (
     <Layout>
       <Card noPadding={true}>

@@ -39,9 +39,12 @@ export const ProfileProvider = ({ children }) => {
     // setUserFriends(userFriends);
     const allUserRequest = await getAllUserFunction(id);
 
-    console.log({ userFriends });
+    // console.log({ userFriends });
+    if (!Array.isArray(userFriends)) {
+      return;
+    }
     let friendsIdArray = [];
-    console.log(userFriends);
+    // console.log(userFriends);
     userFriends?.forEach((friend) => {
       friendsIdArray.push(friend.sender.id);
       friendsIdArray.push(friend.receiver.id);
@@ -70,7 +73,7 @@ export const ProfileProvider = ({ children }) => {
     setUserProfile(profile);
     const userPosts = await getUserPostFunction(id);
 
-    console.log("fetchPostFunction", userPosts);
+    // console.log("fetchPostFunction", userPosts);
     setUserPosts(userPosts);
   }
 

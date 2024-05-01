@@ -27,7 +27,7 @@ export function AuthFormLogin() {
           .select("email,password")
           .is();
 
-        console.log({ users, error });
+        // console.log({ users, error });
       } catch (error) {
         // Handle errors
         console.log({ error });
@@ -86,7 +86,7 @@ export function AuthFormLogin() {
       router.push("/"); // Replace '/another-page' with the path of the page you want to redirect to
 
       setLoading(false);
-      console.log({ users, error });
+      // console.log({ users, error });
     } catch (error) {
       setLoading(false);
       // Handle errors
@@ -181,7 +181,7 @@ export function AuthFormRegister({ setActiveAuth }) {
           .select("email,password")
           .is();
 
-        console.log({ users, error });
+        // console.log({ users, error });
       } catch (error) {
         // Handle errors
         console.log({ error });
@@ -243,7 +243,7 @@ export function AuthFormRegister({ setActiveAuth }) {
       toast.success("Successfully registered");
       setLoading(false);
       setActiveAuth(0);
-      console.log({ data, error });
+      // console.log({ data, error });
     } catch (error) {
       setLoading(false);
       // Handle errors

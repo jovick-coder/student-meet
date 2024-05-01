@@ -23,10 +23,10 @@ export const ChatProvider = ({ children }) => {
       try {
         if (activeChat === null) return;
 
-        console.log(activeChat);
+        // console.log(activeChat);
         // Await the result of the asynchronous function call
         let chats = await getChatForAUserFunction(activeChat.id);
-        console.log({ chats });
+        // console.log({ chats });
 
         setActiveMessage({
           loading: false,
