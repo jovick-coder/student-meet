@@ -119,7 +119,7 @@ export function FriendRequestInfo({ request, userId }) {
               waiting for response
             </button>
           ) : (
-            <>
+            <div className="flex gap-2">
               {" "}
               <button
                 className="ms-auto bg-blue-500 w-24 h-10 text-white px-1 rounded-md"
@@ -137,7 +137,7 @@ export function FriendRequestInfo({ request, userId }) {
               >
                 Reject
               </button>
-            </>
+            </div>
           )}
         </div>
       )}
