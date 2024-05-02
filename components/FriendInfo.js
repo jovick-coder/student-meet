@@ -95,6 +95,7 @@ export function FriendRequestInfo({ request, userId }) {
     useProfileContext();
 
   useEffect(() => {
+    // console.log("first", { request, userId });
     if (request.sender.id !== userId) {
       return setFriendDetail(request.sender);
     }
@@ -112,21 +113,33 @@ export function FriendRequestInfo({ request, userId }) {
         </div>
       </div>
       {!request.accepted && (
-        <>
-          {" "}
-          <button
-            className="ms-auto bg-blue-500 w-24 h-10 text-white px-1 rounded-md"
-            onClick={() => handleAcceptFriendRequest(request, friendDetail.id)}
-          >
-            Accept
-          </button>
-          <button
-            className="ms-auto bg-red-500 w-24 h-10 text-white px-1 rounded-md"
-            onClick={() => handleRejectFriendRequest(request, friendDetail.id)}
-          >
-            Reject
-          </button>
-        </>
+        <div className="ms-auto">
+          {request.sender.id === userId ? (
+            <button className=" bg-blue-500 w-auto h-10 text-white px-1 rounded-md">
+              waiting for response
+            </button>
+          ) : (
+            <>
+              {" "}
+              <button
+                className="ms-auto bg-blue-500 w-24 h-10 text-white px-1 rounded-md"
+                onClick={() =>
+                  handleAcceptFriendRequest(request, friendDetail.id)
+                }
+              >
+                Accept
+              </button>
+              <button
+                className="ms-auto bg-red-500 w-24 h-10 text-white px-1 rounded-md"
+                onClick={() =>
+                  handleRejectFriendRequest(request, friendDetail.id)
+                }
+              >
+                Reject
+              </button>
+            </>
+          )}
+        </div>
       )}
     </div>
   );
