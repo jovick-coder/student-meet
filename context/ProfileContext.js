@@ -27,6 +27,7 @@ export const ProfileProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    if (!id) return;
     fetchPostFunction();
     fetchProfileFunction();
     fetchProfileFriendsFunction();
