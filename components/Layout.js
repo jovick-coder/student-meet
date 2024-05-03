@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import NavigationCard from "./NavigationCard";
 
 export default function Layout({ children, hideNavigation }) {
@@ -9,6 +10,8 @@ export default function Layout({ children, hideNavigation }) {
   }
   return (
     <div className="md:flex max-w-6xl mx-auto gap-6 h-[100vh]">
+      <Toaster position="top-center" />
+
       <title>PostMate</title>
       {!hideNavigation && (
         <div className="fixed md:static w-full bottom-0 md:w-3/12  z-10 mt-3">
