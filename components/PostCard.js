@@ -187,7 +187,7 @@ export default function PostCard({ post, loggedIn }) {
         {post?.image_url && (
           <div className="rounded-md overflow-hidden">
             <Image
-              src="/images/santorini.jpg"
+              src={post?.image_url}
               width="900"
               height="900"
               alt="santorini"
