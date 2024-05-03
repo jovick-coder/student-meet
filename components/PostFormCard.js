@@ -27,23 +27,16 @@ export default function PostFormCard({ loggedIn }) {
     if (!file) {
       return toast.error("Invalid image");
     }
-    // console.log({ file: file.name, userProfile });
-    // return;
-    // // Upload the image file to Superbase storage
-    // const { data, error } = await supabase.storage
-    //   .from("post-image")
-    //   .upload("path/to/upload", file);
     const { data, error } = await supabase.storage
       .from("post-image")
-      .upload(`public/${userProfile.username}/${file.name}`, file);
+      .upload(
+        `public/${userProfile.username}/${file.name}_${Date.now()}`,
+        file
+      );
 
     if (error) {
       console.error("Error uploading image:", error.message);
     } else {
-      // console.log("Image uploaded successfully:", data);
-      // console.log({ data });
-      // Attach the uploaded image URL to a post in Superbase
-      //   await attachImageUrlToPost();
       return `https://lwdenyyamdfiwbzdzzhj.supabase.co/storage/v1/object/public/post-image/${data.path}`;
     }
   };
@@ -57,20 +50,20 @@ export default function PostFormCard({ loggedIn }) {
       }
       let image_url = null;
 
+      // return;
+
+      if (postMessage === "" && !file) {
+        setLoading(false);
+        return toast.error("Write a post / post an image");
+      }
       if (file) {
         image_url = await handleUpload();
-        console.log(image_url);
+        // console.log(image_url);
 
         if (!image_url) {
           setLoading(false);
           return toast.error("Error image not uploaded");
         }
-      }
-      // return;
-
-      if (!postMessage || postMessage === "") {
-        setLoading(false);
-        return toast.error("Write a post / post an image");
       }
       // return console.log(postMessage);
       const postData = await userCreatePost(postMessage, image_url);
