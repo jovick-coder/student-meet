@@ -68,7 +68,7 @@ export default function PostCard({ post, loggedIn }) {
   };
   const handelCommentOnPostFunction = async () => {
     if (!loggedIn) {
-      return toast.error("Login to shear post");
+      return toast.error("Login to Comment on post");
     }
     setSendCommentLoading(true);
 
@@ -219,9 +219,6 @@ export default function PostCard({ post, loggedIn }) {
         <button
           className="flex gap-2 items-center"
           onClick={() => {
-            if (!loggedIn) {
-              return toast.error("Login to shear post");
-            }
             setWriteComment(true);
           }}
         >
