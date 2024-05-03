@@ -44,10 +44,6 @@ export default function PostFormCard({ loggedIn }) {
   const sharePostFunction = async () => {
     setLoading(true);
     try {
-      if (!loggedIn) {
-        setLoading(false);
-        return toast.error("Login to shear post");
-      }
       let image_url = null;
 
       // return;
