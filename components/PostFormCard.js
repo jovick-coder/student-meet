@@ -7,8 +7,10 @@ import { useState } from "react";
 import Image from "next/image";
 import { IoIosClose } from "react-icons/io";
 import supabase, { userCreatePost } from "@/lib/supabase";
+import { useProfileContext } from "@/context/ProfileContext";
 
 export default function PostFormCard({ loggedIn }) {
+  const { userProfile } = useProfileContext();
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -25,25 +27,25 @@ export default function PostFormCard({ loggedIn }) {
     if (!file) {
       return toast.error("Invalid image");
     }
-
-    // Upload the image file to Superbase storage
+    // console.log({ file: file.name, userProfile });
+    // return;
+    // // Upload the image file to Superbase storage
+    // const { data, error } = await supabase.storage
+    //   .from("post-image")
+    //   .upload("path/to/upload", file);
     const { data, error } = await supabase.storage
       .from("post-image")
-      .upload("path/to/upload", file);
+      .upload(`public/${userProfile.username}/${file.name}`, file);
 
     if (error) {
       console.error("Error uploading image:", error.message);
     } else {
-      console.log("Image uploaded successfully:", data);
-
+      // console.log("Image uploaded successfully:", data);
+      // console.log({ data });
       // Attach the uploaded image URL to a post in Superbase
       //   await attachImageUrlToPost();
-      return data.Key;
+      return `https://lwdenyyamdfiwbzdzzhj.supabase.co/storage/v1/object/public/post-image/${data.path}`;
     }
-  };
-  const attachImageUrlToPost = async (imageUrl) => {
-    // Here, you can implement the logic to attach the imageUrl to a post in Superbase
-    // You can use supabase.from().update() or supabase.from().insert() depending on your data structure
   };
 
   const sharePostFunction = async () => {
@@ -57,13 +59,14 @@ export default function PostFormCard({ loggedIn }) {
 
       if (file) {
         image_url = await handleUpload();
-        console.log({ image_url });
+        console.log(image_url);
 
         if (!image_url) {
           setLoading(false);
           return toast.error("Error image not uploaded");
         }
       }
+      // return;
 
       if (!postMessage || postMessage === "") {
         setLoading(false);
@@ -75,6 +78,8 @@ export default function PostFormCard({ loggedIn }) {
       setPostMessage("");
       toast.success("Success");
       setLoading(false);
+      setPreviewUrl(null);
+      setFile(null);
     } catch (error) {
       setLoading(false);
       console.log({ error });
